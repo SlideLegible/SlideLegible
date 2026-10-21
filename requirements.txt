@@ -1,0 +1,5 @@
+# Install the core package in editable mode and the repository's quality tools.
+-e ./packages/core
+ruff>=0.8,<1
+mypy>=1.13,<2
+pytest>=8.3,<9

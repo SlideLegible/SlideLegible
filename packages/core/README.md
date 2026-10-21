@@ -5,6 +5,7 @@ The shared Python package for SlideLegible. Domain logic belongs here; interface
 ## Development
 
 From the repository root, install the workspace and development tools with `uv sync`.
+If you prefer `venv` and `pip`, create and activate a virtual environment, then run `pip install -r requirements.txt` from the repository root.
 
 Run the configured checks with:
 
