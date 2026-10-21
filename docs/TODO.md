@@ -7,8 +7,8 @@ This checklist tracks implementation work. Documentation in this planning phase 
 - [x] Choose supported Python versions and establish `uv` workspace projects for core, Web backend, and MCP.
 - [x] Add package metadata, workspace dependencies, and installable core package under `packages/core`.
 - [x] Configure Ruff, typing checks, pytest, and documented developer commands.
-- [ ] Decide frontend package manager and add React/TypeScript/Vite project under `apps/web/frontend`.
-- [ ] Record dependency/license review and supported operating systems, including renderer environments.
+- [x] Decide frontend package manager and add React/TypeScript/Vite project under `apps/web/frontend`.
+- [x] Record dependency/license review and supported operating systems, including renderer environments.
 
 ## Phase 2 — Shared core foundations
 

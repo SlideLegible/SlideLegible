@@ -28,7 +28,7 @@ The proposed stack is Python, `python-pptx` with targeted `lxml` OOXML support, 
 
 ## Project status
 
-**Planning and documentation.** The application, library, Web interface, and MCP server are not implemented. No installation or usage commands are available yet.
+**Implementation foundations.** Python workspace packages and a React/TypeScript frontend scaffold are in place. Contrast analysis and end-user workflows are not implemented yet. See the [frontend setup](apps/web/frontend/README.md) for its development commands.
 
 ## Documentation
 
@@ -42,6 +42,7 @@ The proposed stack is Python, `python-pptx` with targeted `lxml` OOXML support, 
 - [Testing strategy](docs/testing-strategy.md)
 - [Development plan](docs/development-plan.md)
 - [Implementation checklist](docs/TODO.md)
+- [Dependency and platform support](docs/dependency-and-platform-support.md)
 - [Decision records](docs/decisions/README.md)
 
 ## Contributing
