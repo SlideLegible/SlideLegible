@@ -5,3 +5,5 @@
 ruff>=0.8,<1
 mypy>=1.13,<2
 pytest>=8.3,<9
+httpx>=0.28,<1
+lxml-stubs>=0.5.1

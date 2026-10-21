@@ -3,10 +3,12 @@ name = "slidelegible-web-backend"
 version = "0.1.0"
 description = "Web API adapter for SlideLegible."
 requires-python = ">=3.11,<3.14"
-license = { text = "MIT" }
+license = { text = "AGPL-3.0-or-later" }
 dependencies = [
     "fastapi>=0.115,<1",
+    "python-multipart>=0.0.18,<1",
     "slidelegible-core",
+    "uvicorn>=0.32,<1",
 ]
 
 [build-system]
