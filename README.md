@@ -28,13 +28,58 @@ The proposed stack is Python, `python-pptx` with targeted `lxml` OOXML support, 
 
 ## Project status
 
-**Implementation foundations.** Python workspace packages and a React/TypeScript frontend scaffold are in place. Contrast analysis and end-user workflows are not implemented yet. See the [frontend setup](apps/web/frontend/README.md) for its development commands.
+**MVP (color contrast) implemented on a local web tool.** Upload a `.pptx`, choose a mode (comfortable reading, projector, strict AAA), review findings with original and corrected previews, accept or reject each change, and download the corrected deck and an HTML report. See [supported content](docs/supported-content.md) for exactly what is analyzed and changed. Font size and line spacing are not implemented.
+
+## Run locally
+
+Requirements: [uv](https://docs.astral.sh/uv/) (Python 3.12 is installed by uv), Node.js 20.19+ or 22.12+, and optionally ONLYOFFICE Desktop Editors or LibreOffice for previews and photo/gradient backgrounds.
+
+```sh
+uv sync
+cd apps/web/frontend
+npm ci
+npm run build
+cd ../../..
+uv run uvicorn slidelegible_web.app:app
+```
+
+Open <http://127.0.0.1:8000>. Uploaded files and generated images live in a private temporary folder that is deleted when the server stops.
+
+For frontend development, run the API with `uv run uvicorn slidelegible_web.app:app --reload` and, in `apps/web/frontend`, `npm run dev`; open the Vite URL (it forwards `/api` to port 8000).
+
+### Renderers
+
+Rendering is optional. Without a renderer, solid backgrounds are still analyzed exactly, but picture and gradient backgrounds cannot be measured and there are no previews.
+
+- **ONLYOFFICE Desktop Editors**: found automatically at `C:\Program Files\ONLYOFFICE\DesktopEditors\converter\x2t.exe` with its font cache in `%LOCALAPPDATA%\ONLYOFFICE\DesktopEditors\data\fonts` (open the app once so the cache exists).
+- **LibreOffice**: found on `PATH` or in its default install folder.
+
+Check what was found and run a test conversion:
+
+```sh
+uv run python -m slidelegible.render
+uv run python -m slidelegible.render path/to/deck.pptx
+```
+
+Environment variables: `SLIDELEGIBLE_RENDERER` (`auto`, `onlyoffice`, `libreoffice`, `none`), `SLIDELEGIBLE_X2T`, `SLIDELEGIBLE_ONLYOFFICE_FONTS`, `SLIDELEGIBLE_SOFFICE`, `SLIDELEGIBLE_RENDER_TIMEOUT` (seconds).
+
+### Checks and sample decks
+
+```sh
+uv run ruff check .
+uv run mypy
+uv run pytest
+uv run python tests/fixtures/decks.py fixtures-out
+```
+
+The last command writes synthetic test decks, including `demo.pptx` with every supported case; `examples/demo-low-contrast.pptx` is a copy.
 
 ## Documentation
 
 - [Architecture](docs/architecture.md)
 - [Repository structure](docs/repository-structure.md)
 - [Core library specification](docs/core-library.md)
+- [Supported content](docs/supported-content.md)
 - [Algorithm design](docs/algorithm-design.md)
 - [PowerPoint processing](docs/pptx-processing.md)
 - [Web architecture](docs/web-architecture.md)

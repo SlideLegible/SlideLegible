@@ -10,7 +10,7 @@ APCA may be reported as a supplementary readability metric only after selecting 
 
 ## Alpha and compositing
 
-Composite foreground/background colors using source alpha and the actual stacking order in linear-light sRGB when those inputs are known. Transparency inherited from fills and effects may require OOXML resolution or rendering. If the effective composite cannot be recovered, report an estimate or unresolved background rather than treating an arbitrary base color as exact.
+Composite foreground/background colors using source alpha and the actual stacking order when those inputs are known. The MVP blends gamma-encoded sRGB values, because PowerPoint, LibreOffice, and browsers blend that way on screen, so the result matches the pixels a reader sees. Transparency inherited from fills and effects may require OOXML resolution or rendering. If the effective composite cannot be recovered, report an estimate or unresolved background rather than treating an arbitrary base color as exact.
 
 ## Background resolution
 
@@ -34,3 +34,17 @@ Prefer consistent mappings for repeated uses of the same source color and contex
 ## Minimizing changes
 
 Apply only selected suggestions, retain source formatting, and avoid modifying unreferenced OOXML parts. A writer should preserve source color semantics (theme reference versus explicit RGB) when a safe equivalent can be represented. If the correction would change shared theme behavior or requires restructuring unsupported content, surface the risk for review or skip it. Preview and correction reports must state whether contrast was rechecked against an exact or estimated background.
+
+## MVP policy values
+
+| Mode | Normal text | Large text (≥ 18 pt, or ≥ 14 pt bold) | Softening |
+| --- | --- | --- | --- |
+| Comfortable reading | WCAG ≥ 4.5:1 and APCA \|Lc\| ≥ 75 | WCAG ≥ 4.5:1 and APCA \|Lc\| ≥ 60 | Optional |
+| Projector | WCAG ≥ 7:1 | WCAG ≥ 4.5:1 | Optional |
+| Strict AAA | WCAG ≥ 7:1 | WCAG ≥ 4.5:1 | Not offered |
+
+APCA uses the APCA-W3 constants `0.0.98G-4g`. Searches add a margin of 0.05 to the ratio and 1 Lc, and every proposed color is re-checked after rounding to 8-bit `srgbClr`.
+
+Other MVP parameters (in `slidelegible.policy`): background lightness changes are limited to ±0.15 OKLCH L; backgrounds behind text with OKLCH chroma above 0.20 are reduced to 0.20 (hue and lightness kept); image scrims use the theme's `dk1` or `lt1` color at the smallest passing opacity between 30 % and 85 %; softening maps pure black backgrounds to `#121212`, pure white backgrounds to `#FAFAFA`, pure black text to `#1A1A1A`, and pure white text to `#F0F0F0`, only when the result still passes. Text fixes next to a saturation or softening change are computed to pass on both the original and the changed background, so those changes can be accepted independently. Identical text/background color pairs share one suggestion across the deck.
+
+Strategy order for a failing run: text lightness (same polarity), background lightness on its editable solid fill (background only first, then background plus text), polarity flip (marked major), then a scrim for picture backgrounds. A gradient or mixed background where no single text color passes everywhere is reported and left unchanged.
