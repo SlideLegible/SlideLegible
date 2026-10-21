@@ -4,7 +4,7 @@ This checklist tracks implementation work. Documentation in this planning phase 
 
 ## Phase 1 — Workspace and project tooling
 
-- [ ] Choose supported Python versions and establish `uv` workspace projects for core, Web backend, and MCP.
+- [x] Choose supported Python versions and establish `uv` workspace projects for core, Web backend, and MCP.
 - [x] Add package metadata, workspace dependencies, and installable core package under `packages/core`.
 - [x] Configure Ruff, typing checks, pytest, and documented developer commands.
 - [ ] Decide frontend package manager and add React/TypeScript/Vite project under `apps/web/frontend`.
