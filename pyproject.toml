@@ -1,5 +1,8 @@
 [tool.uv.workspace]
-members = ["packages/core"]
+members = ["packages/core", "apps/web/backend", "apps/mcp"]
+
+[tool.uv.sources]
+slidelegible-core = { workspace = true }
 
 [dependency-groups]
 dev = [
@@ -22,5 +25,5 @@ select = ["E", "F", "I", "UP"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["slidelegible"]
-mypy_path = "packages/core/src"
+packages = ["slidelegible", "slidelegible_web", "slidelegible_mcp"]
+mypy_path = "packages/core/src:apps/web/backend/src:apps/mcp/src"

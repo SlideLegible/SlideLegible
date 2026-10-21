@@ -1,5 +1,7 @@
-# Install the core package in editable mode and the repository's quality tools.
+# Install the Python workspace packages in editable mode and the quality tools.
 -e ./packages/core
+-e ./apps/web/backend
+-e ./apps/mcp
 ruff>=0.8,<1
 mypy>=1.13,<2
 pytest>=8.3,<9
